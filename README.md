@@ -1,6 +1,6 @@
 # TimeScope
 
-TimeScope is a web-based temporal visualization platform designed to transform how users navigate and perceive time.
+TimeScope is a web-based visualization platform designed to transform how users navigate and perceive time.
 
 Unlike traditional calendar applications that focus primarily on scheduling and reminders, TimeScope treats time as a continuous, scalable visual system.
 
