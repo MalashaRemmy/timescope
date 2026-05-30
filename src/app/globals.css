@@ -1,0 +1,385 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   TimeScope - Temporal Operating System
+   Global Styles & Design System
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── CSS Custom Properties (Design Tokens) ────────────────────────────────── */
+:root {
+  /* Primary temporal colors */
+  --color-now: #00e5ff;
+  --color-accent: #6b8cff;
+  --color-future: #8c6bff;
+  
+  /* Background zones */
+  --bg-void: #030308;
+  --bg-abyss: #060612;
+  --bg-deep-space: #0a0a1a;
+  --bg-surface: #0f0f1e;
+  
+  /* Text colors */
+  --text-primary: #e8e8f0;
+  --text-secondary: #a0a0c8;
+  --text-tertiary: #606080;
+  
+  /* Temporal zone colors */
+  --past-color: rgba(140, 140, 180, 0.3);
+  --present-color: rgba(0, 229, 255, 0.8);
+  --future-color: rgba(140, 107, 255, 0.5);
+  
+  /* Layer colors */
+  --layer-personal: #6b8cff;
+  --layer-professional: #00e5ff;
+  --layer-social: #ff6b9d;
+  --layer-health: #00ffc8;
+  --layer-learning: #ff8c00;
+  --layer-creative: #8c6bff;
+  
+  /* Typography */
+  --font-display: 'Syne', 'Inter', -apple-system, sans-serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  
+  /* Animation */
+  --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-in-out: cubic-bezier(0.42, 0, 0.58, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 600ms;
+}
+
+/* ─── Base Reset ──────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg-deep-space);
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Typography ──────────────────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* ─── Selection ───────────────────────────────────────────────────────────── */
+::selection {
+  background: rgba(107, 140, 255, 0.3);
+  color: var(--text-primary);
+}
+
+/* ─── Scrollbar ───────────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(100, 100, 140, 0.3);
+  border-radius: 3px;
+  transition: background var(--duration-fast) var(--ease-smooth);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 100, 140, 0.5);
+}
+
+/* ─── Animations ──────────────────────────────────────────────────────────── */
+
+/* Now line pulse - breathing effect */
+@keyframes pulseNow {
+  0%, 100% { 
+    opacity: 0.9;
+    filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.4));
+  }
+  50% { 
+    opacity: 0.5;
+    filter: drop-shadow(0 0 16px rgba(0, 229, 255, 0.8));
+  }
+}
+
+.animate-pulse-now {
+  animation: pulseNow 2s ease-in-out infinite;
+}
+
+/* Fade in - smooth reveal */
+@keyframes fadeIn {
+  from { 
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s var(--ease-out) forwards;
+}
+
+/* Scale in - zoom reveal */
+@keyframes scaleIn {
+  from { 
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to { 
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.4s var(--ease-out) forwards;
+}
+
+/* Glow pulse - for interactive elements */
+@keyframes glowPulse {
+  0%, 100% { 
+    box-shadow: 0 0 0 0 rgba(0, 229, 255, 0);
+  }
+  50% { 
+    box-shadow: 0 0 20px 4px rgba(0, 229, 255, 0.15);
+  }
+}
+
+.animate-glow-pulse {
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+/* Shimmer - for loading states */
+@keyframes shimmer {
+  0% { 
+    background-position: -200% 0;
+  }
+  100% { 
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(107, 140, 255, 0.1) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Float - gentle vertical movement */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* ─── Utility Classes ─────────────────────────────────────────────────────── */
+
+/* Glass effect */
+.glass {
+  background: rgba(15, 15, 30, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.glass-strong {
+  background: rgba(15, 15, 30, 0.9);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Temporal zone indicators */
+.temporal-past {
+  color: var(--past-color);
+}
+
+.temporal-present {
+  color: var(--present-color);
+}
+
+.temporal-future {
+  color: var(--future-color);
+}
+
+/* Focus states */
+.focus-ring {
+  outline: none;
+  transition: box-shadow var(--duration-fast) var(--ease-smooth);
+}
+
+.focus-ring:focus-visible {
+  box-shadow: 0 0 0 2px var(--bg-deep-space), 0 0 0 4px var(--color-now);
+}
+
+/* Interactive hover states */
+.hover-glow {
+  transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.15);
+}
+
+/* Text gradients */
+.text-gradient {
+  background: linear-gradient(135deg, var(--color-now), var(--color-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Component Styles ────────────────────────────────────────────────────── */
+
+/* Button base */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-smooth);
+  user-select: none;
+}
+
+.btn-primary {
+  background: rgba(0, 229, 255, 0.15);
+  border-color: rgba(0, 229, 255, 0.3);
+  color: var(--color-now);
+}
+
+.btn-primary:hover {
+  background: rgba(0, 229, 255, 0.25);
+  border-color: rgba(0, 229, 255, 0.5);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Card base */
+.card {
+  background: var(--bg-surface);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: var(--space-lg);
+}
+
+/* Badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: 9999px;
+}
+
+.badge-now {
+  background: rgba(0, 229, 255, 0.15);
+  color: var(--color-now);
+  border: 1px solid rgba(0, 229, 255, 0.3);
+}
+
+.badge-scale {
+  background: rgba(107, 140, 255, 0.15);
+  color: var(--color-accent);
+  border: 1px solid rgba(107, 140, 255, 0.3);
+}
+
+/* ─── Layer Colors ────────────────────────────────────────────────────────── */
+.layer-personal { color: var(--layer-personal); }
+.layer-professional { color: var(--layer-professional); }
+.layer-social { color: var(--layer-social); }
+.layer-health { color: var(--layer-health); }
+.layer-learning { color: var(--layer-learning); }
+.layer-creative { color: var(--layer-creative); }
+
+.bg-layer-personal { background-color: var(--layer-personal); }
+.bg-layer-professional { background-color: var(--layer-professional); }
+.bg-layer-social { background-color: var(--layer-social); }
+.bg-layer-health { background-color: var(--layer-health); }
+.bg-layer-learning { background-color: var(--layer-learning); }
+.bg-layer-creative { background-color: var(--layer-creative); }
+
+/* ─── Responsive Typography ───────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  :root {
+    --space-lg: 20px;
+    --space-xl: 28px;
+    --space-2xl: 40px;
+  }
+}
+
+/* ─── Reduced Motion ──────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── Print Styles ────────────────────────────────────────────────────────── */
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+}

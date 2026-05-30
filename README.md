@@ -1,103 +1,98 @@
 # TimeScope
 
-TimeScope is a web-based visualization platform designed to transform how users navigate and perceive time.
+A cinematic temporal visualization platform. Navigate time like a map — zoom, pan, and explore across scales from decades to hours.
 
-Unlike traditional calendar applications that focus primarily on scheduling and reminders, TimeScope treats time as a continuous, scalable visual system.
+## Tech Stack
 
-The platform enables fluid navigation across multiple temporal scales:
+- **Next.js 14** (App Router)
+- **TypeScript**
+- **Tailwind CSS**
+- **Framer Motion**
+- **Canvas API** (coordinate-based rendering engine)
 
-* Decades
-* Multi-year spans
-* Years
-* Quarters
-* Months
-* Weeks
-* Days
-* Live hourly progression
+## Timezone
 
-TimeScope introduces a map-like interaction model for time itself, allowing users to zoom, pan, and move seamlessly through temporal structures while maintaining continuity and context.
+Locked to **Africa/Lusaka** (CAT, UTC+2).
 
 ---
 
-# Core Philosophy
+## Local Development
 
-Time should not feel fragmented.
+### Prerequisites
 
-Modern calendars separate time into disconnected views and static grids. TimeScope instead presents time as a living, continuous landscape with:
+- Node.js 18+ (`node --version`)
+- npm 9+ (`npm --version`)
 
-* Infinite zoom navigation
-* Real-time temporal rendering
-* Past/present/future visual differentiation
-* Live time positioning
-* Spatial continuity
+### Setup
 
-The goal is to create a calm, immersive, and visually intuitive way to understand progression through time.
+```bash
+# Install dependencies
+npm install
 
----
+# Start dev server
+npm run dev
+```
 
-# MVP Scope
-
-The initial version focuses exclusively on the temporal visualization engine.
-
-## Included
-
-* Infinite zoom architecture
-* Decade → Year → Quarter → Month → Week → Day scaling
-* Live time indicator
-* Temporal shading system
-* Smooth panning and navigation
-* Zambia timezone support (`Africa/Lusaka`)
-* Responsive web interface
-
-## Excluded (for MVP)
-
-* Authentication
-* Notifications
-* Collaboration
-* Tasks
-* AI systems
-* Calendar syncing
-* Productivity integrations
+Open [http://localhost:3000](http://localhost:3000)
 
 ---
 
-# Technical Stack
+## Interactions
 
-* Next.js
-* React
-* TypeScript
-* Tailwind CSS
-* Framer Motion
+| Action | Result |
+|--------|--------|
+| **Drag** left/right | Pan through time |
+| **Scroll wheel** | Zoom in/out |
+| **Pinch** (touch) | Zoom in/out |
+| **⬤ Now** button | Snap to present |
+| **+ / −** buttons | Step zoom levels |
 
----
+## Zoom Scales
 
-# Design Direction
-
-TimeScope is inspired more by:
-
-* map systems,
-* infinite canvases,
-* spatial interfaces,
-* visualization engines,
-
-than by traditional productivity software.
-
-The experience should feel:
-
-* minimal,
-* cinematic,
-* fluid,
-* calm,
-* spatial.
+Decade → 5 Years → 4 Years → 3 Years → 2 Years → **Year** (default) → Quarter → Month → Week → Day → Hours
 
 ---
 
-# Long-Term Vision
+## Deploy to Vercel
 
-TimeScope aims to evolve into a modern visual operating system for time — enabling users to understand temporal progression with clarity, continuity, and depth.
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy
+vercel
+```
+
+Or push to GitHub and import at [vercel.com](https://vercel.com).
 
 ---
 
-# Status
+## Architecture
 
-Early-stage conceptual and architectural development.
+```
+src/
+├── app/
+│   ├── layout.tsx          # Root layout, fonts, metadata
+│   ├── page.tsx            # Main page — orchestrates all components
+│   └── globals.css         # Tailwind + custom keyframes
+├── components/
+│   ├── timeline/
+│   │   ├── TimelineCanvas.tsx   # Canvas wrapper + interaction bridge
+│   │   └── NowMarker.tsx        # Animated NOW tooltip
+│   ├── ui/
+│   │   ├── Header.tsx           # Logo + scale badge + live clock
+│   │   └── ScaleTransition.tsx  # Animated scale label
+│   └── hud/
+│       └── HUD.tsx              # Bottom control bar
+├── hooks/
+│   ├── useViewport.ts      # Zoom/pan state machine (useReducer)
+│   ├── useLiveClock.ts     # 1s clock tick in Africa/Lusaka
+│   ├── useCanvasSize.ts    # DPR-aware canvas sizing via ResizeObserver
+│   └── useInteractions.ts  # Mouse/wheel/touch event handlers
+├── lib/
+│   ├── constants.ts        # Scales, colors, time constants
+│   ├── timeEngine.ts       # Coordinate math, clock helpers
+│   └── canvasRenderer.ts   # All canvas drawing logic
+└── types/
+    └── index.ts            # TypeScript interfaces
+```
